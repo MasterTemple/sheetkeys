@@ -56,6 +56,11 @@ const Commands = {
       name: "Edit cell",
       group: "editing",
     },
+    substituteCell: {
+      fn: SheetActions.substituteCell.bind(SheetActions),
+      name: "Substitute cell",
+      group: "editing",
+    },
     editCellAppend: {
       fn: SheetActions.editCellAppend.bind(SheetActions),
       name: "Append to cell",
@@ -356,14 +361,13 @@ const Commands = {
 
       // Editing
       "editCell": "i",
+      "substituteCell": "s",
       "editCellAppend": "a",
       "undo": "u",
       "redo": "<C-r>",
       "replaceChar": "r",
       "openRowBelow": "o",
       "openRowAbove": "O",
-      "insertRowBelow": "s",
-      "insertRowAbove": "S",
       "deleteRowsOrColumns": "d•d",
       "clear": "x",
       "changeCell": "c•c",

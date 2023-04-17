@@ -383,6 +383,13 @@ const SheetActions = {
     this.typeKeyFn(KeyboardUtils.keyCodes.enter);
   },
 
+  substituteCell() {
+    this.clickMenu(this.menuItems.copy);
+    this.clear();
+    this.typeKeyFn(KeyboardUtils.keyCodes.enter);
+    this.moveCursorToCellStart();
+  },
+
   // Put the cursor at the beginning of the cell.
   editCell() {
     this.typeKeyFn(KeyboardUtils.keyCodes.enter);
