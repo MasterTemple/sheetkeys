@@ -348,6 +348,18 @@ const Commands = {
       name: "Reload page",
       group: "other",
     },
+    recordMacro: {
+      // fn: SheetActions.recordMacro.bind(SheetActions),
+      fn: UI.recordMacro.bind(UI),
+      name: "Record Macro",
+      group: "other",
+    },
+    playMacro: {
+      // fn: SheetActions.playMacro.bind(SheetActions),
+      fn: UI.prepareToPlayMacro.bind(UI),
+      name: "Play Macro",
+      group: "other",
+    },
   },
 
   defaultMappings: {
@@ -436,6 +448,9 @@ const Commands = {
       // should happen. If we pass this through to Sheets, Sheets will exit full screen mode if it's
       // activated.
       "exitMode": "esc",
+      // Macros
+      "recordMacro": "q",
+      "playMacro": "@",
     },
 
     // NOTE(philc): Currently we only let the user bind mappings for normal mode commands. So, if

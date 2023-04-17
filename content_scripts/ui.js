@@ -28,6 +28,10 @@ const UI = {
   keyMappingsPrefixes: null,
   richTextEditorId: "waffle-rich-text-editor",
   modeToKeyToCommand: null,
+  macros: {},
+  currentMacro: null,
+  isRecordingMacro: false,
+  isPlayingMacro: false,
 
   init() {
     this.injectPageScript();
@@ -163,10 +167,25 @@ const UI = {
   onKeydown(e) {
     const keyString = KeyboardUtils.getKeyString(e);
     // console.log "keydown event. keyString:", keyString, e.keyCode, e.keyIdentifier, e
+    // console.log({keyString, keyCode: e.keyCode, keyIdentifier: e.keyIdentifier, e});
     if (this.ignoreKeys || SheetActions.mode == "disabled") return;
 
     // Ignore key presses which are just modifiers.
     if (!keyString) return;
+
+    console.log({isRecordingMacro: this.isRecordingMacro, currentMacro: this.currentMacro})
+    // play macro
+    if(this.isPlayingMacro) {
+        this.playMacroRecording(keyString);
+        this.cancelEvent(e);
+        return;
+    }
+    // record macro
+    else if(this.isRecordingMacro && this.currentMacro === null) {
+      this.beginMacroRecording(keyString);
+      this.cancelEvent(e);
+      return;
+    }
 
     // In replace mode, we're waiting for one character to be typed, and we will replace the cell's
     // contents with that character and then return to normal mode.
@@ -213,6 +232,9 @@ const UI = {
 
       commandName = modeMappings[keySequence];
       if (commandName) {
+        if(this.isRecordingMacro) {
+          this.addActionToMacro(this.keyQueue)
+        }
         this.keyQueue = [];
         this.cancelEvent(e);
         for(let i=0; i<count;i++)
@@ -242,6 +264,52 @@ const UI = {
     KeyboardUtils.simulateClick(exploreButton);
     KeyboardUtils.simulateClick(exploreButton); // Click twice to show and then hide.
   },
+
+  recordMacro() {
+    // is recording macro -> stop recording
+    if(this.isRecordingMacro) {
+      this.endMacroRecording();
+    }
+    // start recording
+    else {
+      this.prepareToRecordMacro();
+    }
+  },
+
+  // executes when q is pressed, waits for next key for the name -> beginMacroRecording(name)
+  prepareToRecordMacro() {
+    this.isRecordingMacro = true;
+  },
+
+  // executes when @ is pressed, waits for next key for the name -> playMacroRecording(name)
+  prepareToPlayMacro() {
+    this.isPlayingMacro = true;
+  },
+
+  beginMacroRecording(name) {
+    this.macros[name] = [];
+    this.currentMacro = name;
+  },
+
+  addActionToMacro(keyQueue) {
+    this.macros[this.currentMacro].push(keyQueue);
+  },
+
+  endMacroRecording() {
+    this.currentMacro = null;
+    this.isRecordingMacro = false;
+  },
+
+  playMacroRecording(name) {
+    this.isPlayingMacro = false;
+    console.log(this.macros[name])
+    for(let action of this.macros[name]) {
+      for(let key of action) {
+        const e = new KeyboardEvent("keydown", {key: key})
+        this.onKeydown(e)
+      }
+    }
+  }
 };
 
 // Don't initialize this Sheets UI if this code is being loaded from our extension's options page.
