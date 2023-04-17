@@ -191,13 +191,22 @@ const UI = {
     // See if a bound command matches the typed key sequence. If so, execute it.
     // Prioritize longer mappings over shorter mappings.
     for (let i = Math.min(this.maxKeyMappingLength, this.keyQueue.length); i >= 1; i--) {
-      const keySequence = this.keyQueue.slice(this.keyQueue.length - i, this.keyQueue.length).join(
+      const keySequenceWithCount = this.keyQueue.slice(this.keyQueue.length - i, this.keyQueue.length).join(
         Commands.KEY_SEPARATOR,
       );
+
+      // get count
+      const numbers = keySequenceWithCount.replace(Commands.KEY_SEPARATOR, "").match(/\d+/g);
+      const count = parseInt((numbers || [1])[0])
+      const lastInput = this.keyQueue[this.keyQueue.length-1]
+      // remove it from keymapping to not interfere
+      const keySequence = keySequenceWithCount.replace(new RegExp(`\\d${Commands.KEY_SEPARATOR}`, "g"), "")
+
       // If this key could be part of one of the bound key mapping, don't pass it through to the
       // page. Also, if some longer mapping partially matches this key sequence, then wait for more
       // keys, and don't immediately apply a shorter mapping which also matches this key sequence.
-      if (modePrefixes[keySequence]) {
+      // Now it does nothing if a number is typed as well. parseInt() doesn't work because '0' in '10' will evaluate to false.
+      if (modePrefixes[keySequence] || lastInput.match(/^\d$/g)) {
         this.cancelEvent(e);
         return;
       }
@@ -206,7 +215,8 @@ const UI = {
       if (commandName) {
         this.keyQueue = [];
         this.cancelEvent(e);
-        Commands.commands[commandName].fn();
+        for(let i=0; i<count;i++)
+          Commands.commands[commandName].fn();
       }
     }
   },
