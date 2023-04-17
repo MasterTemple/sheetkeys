@@ -110,6 +110,7 @@ Here is a partial list:
   spreadsheet to be visible on screen. But it has two inconveniences: there is no keyboard shortcut
   for toggling it, and there's a persistent popup whenever one enters full screen mode. SheetKeys
   adds a shortcut for it, and auto-dismisses the popup for you.
+* Adding a number before a command will execute a command `n` number of times. `5j` will move 5 columns down.
 
 ## Developer workflow
 
