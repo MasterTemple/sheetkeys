@@ -106,6 +106,11 @@ const Commands = {
       name: "Delete selected rows/columns",
       group: "editing",
     },
+    cut: {
+      fn: SheetActions.cut.bind(SheetActions),
+      name: "Cut",
+      group: "editing",
+    },
     clear: {
       fn: SheetActions.clear.bind(SheetActions),
       name: "Clear",
@@ -369,7 +374,7 @@ const Commands = {
       "openRowBelow": "o",
       "openRowAbove": "O",
       "deleteRowsOrColumns": "d•d",
-      "clear": "x",
+      "cut": "x",
       "changeCell": "c•c",
       "copyRowOrSelection": "y•y",
 

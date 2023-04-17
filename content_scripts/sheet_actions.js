@@ -351,6 +351,12 @@ const SheetActions = {
     this.clickMenu(this.menuItems.redo);
   },
 
+  cut() {
+    this.clickMenu(this.menuItems.copy);
+    this.activateMenu("Delete►");
+    this.clickMenu(this.menuItems.deleteValues);
+  },
+
   clear() {
     this.activateMenu("Delete►");
     this.clickMenu(this.menuItems.deleteValues);
