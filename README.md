@@ -61,11 +61,10 @@ Here is a partial list:
 
     o      Insert a row below the cursor and edit it
     O      Insert a row above the cursor and edit it
-    s      Insert a row below the cursor
-    S      Insert a row above the cursor
+    s      Delete cell contents and edit cell
 
     d,d    Delete the current row (or selected rows/columns)
-    x      Delete cell contents
+    x      Cut cell contents
     y,y    Copy the current row (or selected rows/columns)
     y,c    Copy cells
     p      Paste
