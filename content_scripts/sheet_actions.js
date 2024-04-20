@@ -330,20 +330,37 @@ const SheetActions = {
     const keyOptions = (this.mode == "normal") ? { control: true } : {};
     this.typeKeyFn(KeyboardUtils.keyCodes.left, keyOptions);
 	},
-	goToMark() {
-		let x = 3;
-		let y = 4;
+	goToMark(options) {
+		let name = options.lastKey;
+		let { x, y } = UI.marks[name];
+		console.log({name, x, y})
     const keyOptions = (this.mode == "normal") ? { control: true } : {};
 		// go to top left
     this.typeKeyFn(KeyboardUtils.keyCodes.home, keyOptions);
-		// go left x times
-		for(let i = 0; i < x; i++)
+		// go left x times (start at row 1)
+		for(let i = 1; i < x; i++)
 			this.typeKeyFn(KeyboardUtils.keyCodes.right, {});
-		// go down y times
-		for(let i = 0; i < y; i++)
+		// go down y times (start at column 1)
+		for(let i = 1; i < y; i++)
 			this.typeKeyFn(KeyboardUtils.keyCodes.down, {});
 		// focus
     this.typeKeyFn(KeyboardUtils.keyCodes.backspace, { control: true });
+	},
+	setMark(options) {
+		let name = options.lastKey;
+		let cell = document.querySelector("#t-name-box").value.toLowerCase();
+		let y = parseInt(cell.replace(/\D+/g, ""));
+		let letters = cell.replace(/\d+/g, "")
+		let x = 0;
+		for (let i = 0; i < letters.length; i++) {
+				const char = letters.charAt(i);
+				const digit = char.charCodeAt(0) - 'a'.charCodeAt(0);
+				x = x * 26 + digit;
+		}
+		// this algorithm has an offset
+		x = x + 1;
+		console.log({name, x, y})
+		UI.marks[name] = { x, y };
 	},
 
   //

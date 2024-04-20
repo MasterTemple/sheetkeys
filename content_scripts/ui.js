@@ -23,6 +23,8 @@ const UI = {
   maxKeyMappingLength: 6,
   // Keys which were typed recently
   keyQueue: [],
+  // marks
+  marks: {},
   // A map of mode -> comma-separated keys -> bool. The keys are prefixes to the user's bound key
   // mappings.
   keyMappingsPrefixes: null,
@@ -161,6 +163,9 @@ const UI = {
   },
 
   onKeydown(e) {
+		console.log({e})
+		const cellIndex = document.querySelector("#t-name-box").value;
+
     const keyString = KeyboardUtils.getKeyString(e);
     // console.log "keydown event. keyString:", keyString, e.keyCode, e.keyIdentifier, e
     if (this.ignoreKeys || SheetActions.mode == "disabled") return;
@@ -209,7 +214,7 @@ const UI = {
       if (
 				modePrefixes[keySequence] ||
 				(
-					(lastInput.match(/^\d$/g))
+					(lastInput?.match(/^\d$/g))
 							&&
 					(this.keyQueue.length == 1 && lastInput != "0")
 				)
@@ -223,13 +228,22 @@ const UI = {
 				count = 1;
 
       commandName = modeMappings[keySequence];
-			console.log({keySequence, commandName})
       if (commandName) {
         this.keyQueue = [];
         this.cancelEvent(e);
-        for(let i=0; i<count;i++)
-          Commands.commands[commandName].fn();
+        for(let i=0; i<count;i++) {
+					// these options pass into the command in sheet_actions.js
+          Commands.commands[commandName].fn({x: 3, y: 4});
+				}
       }
+			// could be a mark with a dynamic key
+      commandName = modeMappings[keySequence.replace(/.$/, Commands.DYNAMIC_KEY)];
+			if(commandName) {
+				let lastKey = this.keyQueue[this.keyQueue.length - 1];
+        this.keyQueue = [];
+        this.cancelEvent(e);
+        Commands.commands[commandName].fn({lastKey});
+			}
     }
   },
 

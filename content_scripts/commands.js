@@ -2,6 +2,7 @@ const Commands = {
   // This character is U+0095, and is used as a separator in the string representation of a sequence
   // of keys. It cannot itself appear as a key.
   KEY_SEPARATOR: "•",
+	DYNAMIC_KEY: "⭑",
 
   // Commands will appear in the help dialog, grouped by "group", in the order that they're defined
   // in this map.
@@ -55,6 +56,11 @@ const Commands = {
     goToEndOfRow: {
       fn: SheetActions.goToEndOfRow.bind(SheetActions),
       name: "Go to end of row",
+      group: "movement",
+    },
+    setMark: {
+      fn: SheetActions.setMark.bind(SheetActions),
+      name: "Set mark",
       group: "movement",
     },
     goToMark: {
@@ -398,7 +404,8 @@ const Commands = {
       "moveForwardToEnd": "e",
 			"goToFirstColumn": "0",
 			"goToEndOfRow": "$",
-			"goToMark": "m",
+			"setMark": "m•⭑",
+			"goToMark": "'•⭑",
 			// "moveRight": "0",
 
       // Row & column movement
