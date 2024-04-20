@@ -302,20 +302,20 @@ const SheetActions = {
     this.typeKeyFn(KeyboardUtils.keyCodes.right, keyOptions);
   },
   moveBack() {
-    const keyOptions = (this.mode == "normal") ? { control: true, ctrl: true, ctrlKey: true } : {};
+    const keyOptions = (this.mode == "normal") ? { control: true } : {};
     this.typeKeyFn(KeyboardUtils.keyCodes.left, keyOptions);
   },
   moveBackTwice() {
-    const keyOptions = (this.mode == "normal") ? { control: true, ctrl: true, ctrlKey: true } : {};
+    const keyOptions = (this.mode == "normal") ? { control: true } : {};
     this.typeKeyFn(KeyboardUtils.keyCodes.left, keyOptions);
     this.typeKeyFn(KeyboardUtils.keyCodes.left, keyOptions);
   },
   moveForwardToEnd() {
-    const keyOptions = (this.mode == "normal") ? { control: true, ctrl: true, ctrlKey: true } : {};
+    const keyOptions = (this.mode == "normal") ? { control: true } : {};
     this.typeKeyFn(KeyboardUtils.keyCodes.right, keyOptions);
   },
   moveForwardToNext() {
-    const keyOptions = (this.mode == "normal") ? { control: true, ctrl: true, ctrlKey: true } : {};
+    const keyOptions = (this.mode == "normal") ? { control: true } : {};
     this.typeKeyFn(KeyboardUtils.keyCodes.right, keyOptions);
     this.typeKeyFn(KeyboardUtils.keyCodes.right, keyOptions);
     this.typeKeyFn(KeyboardUtils.keyCodes.right, keyOptions);
@@ -324,6 +324,11 @@ const SheetActions = {
 	goToFirstColumn() {
     const keyOptions = (this.mode == "normal") ? {} : {};
     this.typeKeyFn(KeyboardUtils.keyCodes.home, keyOptions);
+	},
+	goToEndOfRow() {
+    this.typeKeyFn(KeyboardUtils.keyCodes.end, {});
+    const keyOptions = (this.mode == "normal") ? { control: true } : {};
+    this.typeKeyFn(KeyboardUtils.keyCodes.left, keyOptions);
 	},
 
   //
