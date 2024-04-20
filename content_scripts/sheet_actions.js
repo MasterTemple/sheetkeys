@@ -330,6 +330,21 @@ const SheetActions = {
     const keyOptions = (this.mode == "normal") ? { control: true } : {};
     this.typeKeyFn(KeyboardUtils.keyCodes.left, keyOptions);
 	},
+	goToMark() {
+		let x = 3;
+		let y = 4;
+    const keyOptions = (this.mode == "normal") ? { control: true } : {};
+		// go to top left
+    this.typeKeyFn(KeyboardUtils.keyCodes.home, keyOptions);
+		// go left x times
+		for(let i = 0; i < x; i++)
+			this.typeKeyFn(KeyboardUtils.keyCodes.right, {});
+		// go down y times
+		for(let i = 0; i < y; i++)
+			this.typeKeyFn(KeyboardUtils.keyCodes.down, {});
+		// focus
+    this.typeKeyFn(KeyboardUtils.keyCodes.backspace, { control: true });
+	},
 
   //
   // Row movement

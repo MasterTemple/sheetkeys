@@ -57,6 +57,11 @@ const Commands = {
       name: "Go to end of row",
       group: "movement",
     },
+    goToMark: {
+      fn: SheetActions.goToMark.bind(SheetActions),
+      name: "Go to mark",
+      group: "movement",
+    },
 
     // Row & column movement
     moveRowsDown: {
@@ -393,6 +398,7 @@ const Commands = {
       "moveForwardToEnd": "e",
 			"goToFirstColumn": "0",
 			"goToEndOfRow": "$",
+			"goToMark": "m",
 			// "moveRight": "0",
 
       // Row & column movement
