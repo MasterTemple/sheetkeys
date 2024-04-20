@@ -27,6 +27,26 @@ const Commands = {
       name: "Move right",
       group: "movement",
     },
+    moveBack: {
+      fn: SheetActions.moveBack.bind(SheetActions),
+      name: "Move back",
+      group: "movement",
+    },
+    moveBackTwice: {
+      fn: SheetActions.moveBackTwice.bind(SheetActions),
+      name: "Move back",
+      group: "movement",
+    },
+    moveForwardToEnd: {
+      fn: SheetActions.moveForwardToEnd.bind(SheetActions),
+      name: "Move forward to end",
+      group: "movement",
+    },
+    moveForwardToNext: {
+      fn: SheetActions.moveForwardToNext.bind(SheetActions),
+      name: "Move forward to next",
+      group: "movement",
+    },
 
     // Row & column movement
     moveRowsDown: {
@@ -357,6 +377,10 @@ const Commands = {
       "moveDown": "j",
       "moveLeft": "h",
       "moveRight": "l",
+      "moveBack": "b",
+      // "moveBackTwice": "B",
+      "moveForwardToNext": "w",
+      "moveForwardToEnd": "e",
 
       // Row & column movement
       "moveRowsDown": "<C-J>",
@@ -446,6 +470,7 @@ const Commands = {
       // experience for people used to Vim. Now ESC will save your cell edits and put you back in
       // normal mode.
       "exitMode": "esc",
+      // "exitMode": "j•k",
       // In form fields on Mac, C-e takes you to the end of the field. For some reason C-e doesn't
       // work in Sheets. Here, we fix that.
       "moveCursorToCellLineEnd": "<C-e>",

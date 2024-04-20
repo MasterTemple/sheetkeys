@@ -301,6 +301,24 @@ const SheetActions = {
     const keyOptions = (this.mode == "normal") ? {} : { shift: true };
     this.typeKeyFn(KeyboardUtils.keyCodes.right, keyOptions);
   },
+  moveBack() {
+    const keyOptions = (this.mode == "normal") ? { control: true, ctrl: true, ctrlKey: true } : {};
+    this.typeKeyFn(KeyboardUtils.keyCodes.left, keyOptions);
+  },
+  moveBackTwice() {
+    const keyOptions = (this.mode == "normal") ? { control: true, ctrl: true, ctrlKey: true } : {};
+    this.typeKeyFn(KeyboardUtils.keyCodes.left, keyOptions);
+    this.typeKeyFn(KeyboardUtils.keyCodes.left, keyOptions);
+  },
+  moveForwardToEnd() {
+    const keyOptions = (this.mode == "normal") ? { control: true, ctrl: true, ctrlKey: true } : {};
+    this.typeKeyFn(KeyboardUtils.keyCodes.right, keyOptions);
+  },
+  moveForwardToNext() {
+    const keyOptions = (this.mode == "normal") ? { control: true, ctrl: true, ctrlKey: true } : {};
+    this.typeKeyFn(KeyboardUtils.keyCodes.right, keyOptions);
+    this.typeKeyFn(KeyboardUtils.keyCodes.right, keyOptions);
+  },
 
   //
   // Row movement
