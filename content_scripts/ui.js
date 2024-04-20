@@ -197,7 +197,7 @@ const UI = {
 
       // get count
       const numbers = keySequenceWithCount.replace(Commands.KEY_SEPARATOR, "").match(/\d+/g);
-      const count = parseInt((numbers || [1])[0])
+      let count = parseInt((numbers || [1])[0])
       const lastInput = this.keyQueue[this.keyQueue.length-1]
       // remove it from keymapping to not interfere
       const keySequence = keySequenceWithCount.replace(new RegExp(`\\d${Commands.KEY_SEPARATOR}`, "g"), "")
@@ -219,7 +219,7 @@ const UI = {
       }
 
 			// when user types 0, the count becomes 0 which means it never executes
-			if(this.keyQueue.length == 1 && lastInput != "0")
+			if(this.keyQueue.length == 1 && lastInput == "0")
 				count = 1;
 
       commandName = modeMappings[keySequence];
