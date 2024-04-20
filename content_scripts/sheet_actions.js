@@ -313,6 +313,7 @@ const SheetActions = {
   moveForwardToEnd() {
     const keyOptions = (this.mode == "normal") ? { control: true } : {};
     this.typeKeyFn(KeyboardUtils.keyCodes.right, keyOptions);
+		this.setMarginAroundCurrentCell();
   },
   moveForwardToNext() {
     const keyOptions = (this.mode == "normal") ? { control: true } : {};
@@ -320,6 +321,7 @@ const SheetActions = {
     this.typeKeyFn(KeyboardUtils.keyCodes.right, keyOptions);
     this.typeKeyFn(KeyboardUtils.keyCodes.right, keyOptions);
     this.typeKeyFn(KeyboardUtils.keyCodes.left, keyOptions);
+		this.setMarginAroundCurrentCell();
   },
 	goToFirstColumn() {
     const keyOptions = (this.mode == "normal") ? {} : {};
@@ -538,7 +540,15 @@ const SheetActions = {
   //
   // Scrolling
   //
-
+	//
+	setMarginAroundCurrentCell() {
+		// jump (scroll) to active cell
+    this.typeKeyFn(KeyboardUtils.keyCodes.backspace, { control: true });
+		// move left
+		let CELL_WIDTH = 107;
+		let CELLS_AS_MARGIN = 6;
+		document.querySelector("div.native-scrollbar.native-scrollbar-ltr.native-scrollbar-x").scrollLeft -= CELL_WIDTH * CELLS_AS_MARGIN;
+	},
   // In px. Measured on a mac with Chrome's zoom level at 100%.
   rowHeight() {
     return 17;
