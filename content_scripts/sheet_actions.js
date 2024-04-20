@@ -319,7 +319,6 @@ const SheetActions = {
     const keyOptions = (this.mode == "normal") ? { control: true } : {};
     this.typeKeyFn(KeyboardUtils.keyCodes.right, keyOptions);
     this.typeKeyFn(KeyboardUtils.keyCodes.right, keyOptions);
-    this.typeKeyFn(KeyboardUtils.keyCodes.right, keyOptions);
     this.typeKeyFn(KeyboardUtils.keyCodes.left, keyOptions);
 		this.setMarginAroundCurrentCell();
   },
