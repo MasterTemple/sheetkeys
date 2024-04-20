@@ -47,6 +47,11 @@ const Commands = {
       name: "Move forward to next",
       group: "movement",
     },
+    goToFirstColumn: {
+      fn: SheetActions.goToFirstColumn.bind(SheetActions),
+      name: "Go to first column",
+      group: "movement",
+    },
 
     // Row & column movement
     moveRowsDown: {
@@ -381,6 +386,8 @@ const Commands = {
       // "moveBackTwice": "B",
       "moveForwardToNext": "w",
       "moveForwardToEnd": "e",
+			"goToFirstColumn": "0",
+			// "moveRight": "0",
 
       // Row & column movement
       "moveRowsDown": "<C-J>",

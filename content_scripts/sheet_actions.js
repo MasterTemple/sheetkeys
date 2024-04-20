@@ -319,6 +319,10 @@ const SheetActions = {
     this.typeKeyFn(KeyboardUtils.keyCodes.right, keyOptions);
     this.typeKeyFn(KeyboardUtils.keyCodes.right, keyOptions);
   },
+	goToFirstColumn() {
+    const keyOptions = (this.mode == "normal") ? {} : {};
+    this.typeKeyFn(KeyboardUtils.keyCodes.home, keyOptions);
+	},
 
   //
   // Row movement

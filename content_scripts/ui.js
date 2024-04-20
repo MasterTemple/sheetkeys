@@ -206,12 +206,24 @@ const UI = {
       // page. Also, if some longer mapping partially matches this key sequence, then wait for more
       // keys, and don't immediately apply a shorter mapping which also matches this key sequence.
       // Now it does nothing if a number is typed as well. parseInt() doesn't work because '0' in '10' will evaluate to false.
-      if (modePrefixes[keySequence] || lastInput.match(/^\d$/g)) {
+      if (
+				modePrefixes[keySequence] ||
+				(
+					(lastInput.match(/^\d$/g))
+							&&
+					(this.keyQueue.length == 1 && lastInput != "0")
+				)
+			) {
         this.cancelEvent(e);
         return;
       }
 
+			// when user types 0, the count becomes 0 which means it never executes
+			if(this.keyQueue.length == 1 && lastInput != "0")
+				count = 1;
+
       commandName = modeMappings[keySequence];
+			console.log({keySequence, commandName})
       if (commandName) {
         this.keyQueue = [];
         this.cancelEvent(e);
