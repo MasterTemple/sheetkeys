@@ -317,10 +317,20 @@ const SheetActions = {
   },
   moveForwardToNext() {
     const keyOptions = (this.mode == "normal") ? { control: true } : {};
+		let startCell = document.querySelector("#t-name-box").value.toLowerCase();
     this.typeKeyFn(KeyboardUtils.keyCodes.right, keyOptions);
     this.typeKeyFn(KeyboardUtils.keyCodes.right, keyOptions);
     this.typeKeyFn(KeyboardUtils.keyCodes.left, keyOptions);
 		this.setMarginAroundCurrentCell();
+		let endCell = document.querySelector("#t-name-box").value.toLowerCase();
+		// didn't move anywhere; rest of row is empty
+		if(startCell == endCell) {
+			// let y = parseInt(cell.replace(/\D+/g, ""));
+			// move down
+			this.typeKeyFn(KeyboardUtils.keyCodes.down, {});
+			// go to beginning of row
+			this.typeKeyFn(KeyboardUtils.keyCodes.home, {});
+		}
   },
 	goToFirstColumn() {
     const keyOptions = (this.mode == "normal") ? {} : {};
@@ -334,7 +344,6 @@ const SheetActions = {
 	goToMark(options) {
 		let name = options.lastKey;
 		let { x, y } = UI.marks[name];
-		console.log({name, x, y})
     const keyOptions = (this.mode == "normal") ? { control: true } : {};
 		// go to top left
     this.typeKeyFn(KeyboardUtils.keyCodes.home, keyOptions);
@@ -360,7 +369,6 @@ const SheetActions = {
 		}
 		// this algorithm has an offset
 		x = x + 1;
-		console.log({name, x, y})
 		UI.marks[name] = { x, y };
 	},
 
